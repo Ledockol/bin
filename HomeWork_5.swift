@@ -9,8 +9,10 @@ protocol MenuProtocol{
 
 class Pizzeria: MenuProtocol{    
     private var menu: [MenuProtocol]
-    init (menu:[MenuProtocol]){
+    var price : Double
+    init (menu:[MenuProtocol], price: Double){
         self.menu = menu
+        self.price = price
     }
     
 struct FrenchFries: MenuProtocol{
@@ -23,7 +25,7 @@ struct Pizza: MenuProtocol{
 }
 // Добавить в класс функцию которая добавляет новую позицию
     func add(_new : MenuProtocol){
-    menu.append(new)
+    menu.append(_new)
     }
 }
 // Протокол в котором содержатся функции открытия и закрытия

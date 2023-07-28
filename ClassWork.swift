@@ -211,7 +211,7 @@ struct typeTeaPrice {
 
 //создать класс cafe в котором хранится массив с чаем переменная с массивои должна быть приватной 
 // значение в массив должно устанавливаться в иницилизаторе
-
+// _________________________________________
 
 class Cafe{
     private var tea: [Tea]
@@ -221,20 +221,155 @@ class Cafe{
 }
 
 
+// Создать протокол для меню. протокол должен сожержать стоимость и наименования. стоимость и названия должны быть get -only
+
+protocol MenuProtocol {
+    var price : Double {get}
+    var name : String {get}
+}
+
+//Создайте класс кафе в нем должен быть массивс наименованиями меню и иницилизатор
+// подпишите структуру чая с прошлого занятия на протокол из первого пункта 
+// в качестве name должен быть вид чая и 'tea' то есть напимер для черного чая
+// для чеиптрт чая блектиа для зеленого гринтиа
+
+class Cafe{
+    private var menu: [MenuProtocol]
+    init (menu:[MenuProtocol]){
+        self.menu = menu
+    }
+    struct Tea: MenuProtocol {
+    var type: teaType
+    var name : String{type.rawValue+"tea"}
+    var price : Double
+    }
+    enum TeaType: String{
+    case green = "green"
+    case black = "black"
+    case fruit = "fruit"
+
+}
+} 
 
 
 
+// Создайте еще 3 кафе для который класс Cafe будет родительским
+
+class <FirstCafe>: Cafe{}
+class <SecondCafe>: Cafe{}
+class <ThirdCafe>: Cafe{}
+
+// Добавтье в родительский класс функцию add по добавлению новой позиции в меню
+// Саму переменную сделать приватноей если она таковой еще не является
+func add(_new: MenuProtocol){
+    menu.append(new)
+    }   
+
+//Сделать так чтобы в первом из трех классов наследников функция add помиомо выполнения родительского класса
+// печатала в констоль стоимость доьавляемой позиции
+
+class FirstCafe: Cafe{
+    override func add(_new: MenuProtocol){
+        super.add(new)
+        print(new.price)
+    }
+}
+
+// Создать класс автомата с едой не реализовывать в нем ни методов ни свойств
+// этот класс должен уметь делать тоже самое что и firstCafe
+
+class VendingMachine: FirstCafe{}
+
+// Сделать так чтобы от класса автоматна с напитками нельзя было наследоваться
+final class VendingMachine: FirstCafe{}
+
+// Создать две структуры: лимонад и салат Сделать так чтобы и то и то можно было 
+// добавить в меню кафе
+
+struct Salat: MenuProtocol{
+    var name : String
+    var price : Double
+}
+struct Lemonade: MenuProtocol{
+    var name : String
+    var price : Double
+}
+
+let cafe = Cafe(menu:[])
+let lemonade = Lemonade("Fresh",10)
+let salat = Salat("Fresh",20)
+cafe.add(lemonade)
+cafe.add(salat)
+// Добавьте в класс кафе функцию которая возвращает все позиции меню
+
+extension Cafe {
+    func prntMenu() -> MenuProtocol{
+        menu
+    }
+
+    
+}
+// Добавьте в класс кафе функцию которая на основе цены возвращает массив позиция которые можно купить
+func getMass(price :Double)-> [String]{
+var item: [String] = []
+for i in menu{
+    if i.cost <= price{
+        item.append(i.name)
+    }
+}
+return item
+}
+
+
+// задать переменой меню уровень fileprivate
+fileprivate class Cafe{
+    fileprivate var menu: [MenuProtocol]
+
+    init (menu:[MenuProtocol]){
+        self.menu = menu
+    }
+}
+
+//Добавить в класс автомата с едой функцию которая на основе полученного номера
+// (номера элемента в масиве) и денег возвращает товар под необходимым ноером,
+// если денег хватает и нил если не хвататет . Если товар не найдет тоже нил
+
+func getItemProduct(index: Int, money: Double) -> MenuProtocol?{
+    guard index >= 0 && index < menu.count else {return nil}
+    letitem = menu[index]
+
+    if money >= item.cost{
+        return item
+    } else{
+        return nil
+    }
+}
+
+// Создать протокол в котором булет дву функции start и final
+
+protocol WorkProtocol {
+    func start()
+    func final()
+}
+
+// Для класса автомата с едой создать расширение в котором будут содержаться
+// функции из протокола из пункта 6(класс должен быть подписан на протокол)
+// В функции старт должно печататься о начале работы автомата а в финал о завершении
+
+extension VendingMachine: WorkProtocol{
+
+    func start(){
+print ("Start work")
+    }
+    func final(){
+print ("fianl work")
+    }
+
+}
 
 
 
-
-
-
-
-
-
-
-
+// 
 
 
 
